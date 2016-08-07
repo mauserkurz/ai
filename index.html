@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8">
+		<title>AI</title>
+		<style>
+			.btn {
+				height: 25px;
+				padding: 0px;
+				border: none;
+				border-radius: 5px;
+				line-height: 20px;
+				color: white;
+				background-color: coral;
+				transition: opacity .3s ease-out;
+			}
+			.btn:hover {
+				opacity: .6;
+			}
+			.btn:active {
+				box-shadow: 2px 2px 3px #444;
+			}
+			.btn--main {
+				background-color: crimson;
+			}
+		</style>
+		<script src="ai/animateworld.js"></script>
+	</head>
+	<body>
+		<footer class="controls">
+			<button class="btn" id="simple_ai">
+				simple ai
+			</button>
+			<button class="btn" id="wall_follower">
+				wall follower
+			</button>
+			<button class="btn" id="planteater">
+				planteater
+			</button>
+			<button class="btn" id="smartplanteater">
+				smartplanteater
+			</button>
+			<button class="btn" id="predator">
+				predator
+			</button>
+			<button class="btn btn--main" id="stop">stop</button>
+			<button class="btn btn--main" id="start">start</button>
+		</footer>
+		<script>
+			(function() {
+				"use script";
+				var js = document.getElementById('world'),
+					simple_ai_btn = document.querySelector('#simple_ai'),
+					wall_follower_btn = document.querySelector('#wall_follower'),
+					planteater_btn = document.querySelector('#planteater'),
+					smartplanteater_btn = document.querySelector('#smartplanteater'),
+					predator_btn = document.querySelector('#predator')
+					stop_btn = document.querySelector('#stop'),
+					start_btn = document.querySelector('#start'),
+					head = document.getElementsByTagName('head')[0];
+
+				function addSimpleAi () {
+					var new_script = document.createElement('script');
+					var source = 'ai/simple_ai.js';
+					new_script.className = 'simple ai';
+					new_script.src = source;
+					head.appendChild(new_script);
+					new_script.onload = function() {
+						animateWorld(world);
+					};
+				}
+				function addWallFollower () {
+					var new_script = document.createElement('script');
+					var source = 'ai/wall_follower_ai.js';
+					new_script.className = 'wall-follower ai';
+					new_script.src = source;
+					head.appendChild(new_script);
+					new_script.onload = function() {
+						animateWorld(cave);
+					};
+				}
+				function addPlantEater () {
+					var new_script = document.createElement('script');
+					var source = 'ai/planteater_ai.js';
+					new_script.className = 'planteater ai';
+					new_script.src = source;
+					head.appendChild(new_script);
+					new_script.onload = function() {
+						animateWorld(valley);
+					};
+				}
+				function addSmartPlantEater () {
+					var new_script = document.createElement('script');
+					var source = 'ai/smartplanteater_ai.js';
+					new_script.className = 'smartplanteater ai';
+					new_script.src = source;
+					head.appendChild(new_script);
+					new_script.onload = function() {
+						animateWorld(valley);
+					};
+				}
+				function addPredator () {
+					var new_script = document.createElement('script');
+					var source = 'ai/predator_ai.js';
+					new_script.className = 'predator ai';
+					new_script.src = source;
+					head.appendChild(new_script);
+					new_script.onload = function() {
+						animateWorld(big_valley);
+					};
+				}
+				simple_ai_btn.addEventListener('click', function(e) {
+					e.preventDefault();
+					var old_script = document.querySelector('.ai');
+					if (old_script === null) {
+						addSimpleAi();
+					}
+					else {
+						head.removeChild(old_script);
+						if (liveWorld.turning) {
+							liveWorld.stop(true);
+						}
+						else {
+							liveWorld.pre.removeChild(liveWorld.pre.firstChild);
+						}
+						addSimpleAi();
+					}
+				});
+				wall_follower_btn.addEventListener('click', function(e) {
+					e.preventDefault();
+					var old_script = document.querySelector('.ai');
+					if (old_script === null) {
+						addWallFollower();
+					}
+					else {
+						head.removeChild(old_script);
+						if (liveWorld.turning) {
+							liveWorld.stop(true);
+						}
+						else {
+							liveWorld.pre.removeChild(liveWorld.pre.firstChild);
+						}
+						addWallFollower();
+					}
+				});
+				planteater_btn.addEventListener('click', function(e) {
+					e.preventDefault();
+					var old_script = document.querySelector('.ai');
+					if (old_script === null) {
+						addPlantEater();
+					}
+					else {
+						head.removeChild(old_script);
+						if (liveWorld.turning) {
+							liveWorld.stop(true);
+						}
+						else {
+							liveWorld.pre.removeChild(liveWorld.pre.firstChild);
+						}
+						addPlantEater();
+					}
+				});
+				smartplanteater_btn.addEventListener('click', function(e) {
+					e.preventDefault();
+					var old_script = document.querySelector('.ai');
+					if (old_script === null) {
+						addSmartPlantEater();
+					}
+					else {
+						head.removeChild(old_script);
+						if (liveWorld.turning) {
+							liveWorld.stop(true);
+						}
+						else {
+							liveWorld.pre.removeChild(liveWorld.pre.firstChild);
+						}
+						addSmartPlantEater();
+					}
+				});
+				predator_btn.addEventListener('click', function(e) {
+					e.preventDefault();
+					var old_script = document.querySelector('.ai');
+					if (old_script === null) {
+						addPredator();
+					}
+					else {
+						head.removeChild(old_script);
+						if (liveWorld.turning) {
+							liveWorld.stop(true);
+						}
+						else {
+							liveWorld.pre.removeChild(liveWorld.pre.firstChild);
+						}
+						addPredator();
+					}
+				});
+				start_btn.addEventListener('click', function(e) {
+					e.preventDefault();
+					liveWorld.nonstop();
+				});
+				stop_btn.addEventListener('click', function(e) {
+					e.preventDefault();
+					liveWorld.stop(false);
+				});
+			})();
+		</script>
+	</body>
+</html>
